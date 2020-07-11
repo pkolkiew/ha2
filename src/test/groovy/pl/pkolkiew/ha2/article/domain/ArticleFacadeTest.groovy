@@ -1,6 +1,7 @@
 package pl.pkolkiew.ha2.article.domain
 
 import org.springframework.data.domain.Page
+import org.springframework.data.domain.PageImpl
 import org.springframework.data.domain.PageRequest
 import pl.pkolkiew.ha2.article.domain.dto.ArticleDto
 import spock.lang.Specification
@@ -19,7 +20,7 @@ class ArticleFacadeTest extends Specification {
             facade.add(flora)
 
         then: "system has an article"
-            facade.show(flora.articleTitle).equals(flora)
+            facade.show(flora.articleTitle).articleTitle == flora.articleTitle
     }
 
     def "should list articles"() {
@@ -28,7 +29,7 @@ class ArticleFacadeTest extends Specification {
             facade.add(fauna)
 
         when: "we ask for all articles"
-            Page<ArticleDto> foundArticles = facade.findAll(new PageRequest(0,10))
+            PageImpl<ArticleDto> foundArticles = facade.findAll(new PageRequest(0,10))
 
         then: "system returns articles we have added"
             foundArticles.contains(flora)

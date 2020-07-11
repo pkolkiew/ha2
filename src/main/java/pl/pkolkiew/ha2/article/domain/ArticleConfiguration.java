@@ -19,6 +19,5 @@ class ArticleConfiguration {
         ArticleUpdater updater = new ArticleUpdater(articleRepository);
         ArticlePublisher publisher = new ArticlePublisher(articleRepository);
         return new ArticleFacade(articleRepository, updater, publisher);
-
     }
 }
