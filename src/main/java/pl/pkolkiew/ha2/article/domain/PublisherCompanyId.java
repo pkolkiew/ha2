@@ -18,4 +18,5 @@ import javax.persistence.Embeddable;
 @AllArgsConstructor
 class PublisherCompanyId {
     private Long publisherCompanyId;
+
 }

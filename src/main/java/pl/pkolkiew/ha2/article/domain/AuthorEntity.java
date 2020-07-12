@@ -9,6 +9,7 @@ import javax.persistence.Column;
 import javax.persistence.Embedded;
 import javax.persistence.Entity;
 import javax.persistence.Id;
+import java.io.Serializable;
 
 /**
  * @author pkolkiew
@@ -19,7 +20,7 @@ import javax.persistence.Id;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-class AuthorEntity {
+class AuthorEntity implements Serializable {
     @Id
     @Column(name = "author_Id")
     private Long authorId;

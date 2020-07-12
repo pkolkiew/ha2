@@ -7,6 +7,7 @@ import pl.pkolkiew.ha2.article.domain.dto.ArticleDto;
 import pl.pkolkiew.ha2.article.domain.dto.AuthorId;
 
 import javax.persistence.*;
+import java.io.Serializable;
 
 /**
  * @author pkolkiew
@@ -16,7 +17,7 @@ import javax.persistence.*;
 @Entity(name = "ARTICLE")
 @NoArgsConstructor
 @AllArgsConstructor
-class ArticleEntity {
+class ArticleEntity implements Serializable {
     @Id
     private Long id;
     @Embedded

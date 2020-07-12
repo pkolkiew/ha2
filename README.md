@@ -1,6 +1,8 @@
 # ha2
 
-Wszystko i nic
+**Wszystko i nic**
+
+TODO TODO TODO...
 
 1. Zbieramy wymagania co ma robić nasz system;
 2. Tworzymy sobie scenariusze testowe dla tzw. 'happy path' - takie ścieżki które mają dla nas zarabiać pieniądze;
@@ -12,4 +14,27 @@ Wszystko i nic
     czy artykuł o takiej nazwie już istnieje (zatem powinno być coś na zasadzie /findArticleBy...); 
     - autor może ale nie musi mieć wydawcę, użytkownik odpytuje 
      
-     
+
+**Notatki:**
+1. _Serwis aplikacyjny_ w nomenklaturze _DDD_ został tu zaimplementowany poprzez wzorzec fasady;
+* integruje wiele zależności (repozytoria, fabryki, serwisy pomocnicze);
+* zapewnia transakcyjność i bezpieczeństwo (w tym wypadku poprzez adnotacje i AOP);
+* integruje komponenty aplikacyjne (w tym wypadu pracujący w sesji, zalogowany użytkownik);
+* orkiestruje obiekty domenowe.  
+(źr. <u>https://bottega.com.pl/pdf/materialy/ddd/ddd1.pdf</u>)
+
+
+**Pytania:**
+1. Jak rozróżnić kompetencje w implementacji pomiędzy serwisem aplikacyjnym i domenowym ?
+Moje przemyślnia:
+- _serwis aplikacyjny_ (u mnie ArticleFacade) jest takim punktem wejścia do modułu (jedynym). 
+Ma w sobie wiele zależności do wszystkiego. W ostateczności może mieć też fasadę do innego modułu.
+- _serwis domenowy_ (u mnie np. ArticleService) ma w sobie zwykle znacznie mniej zależności. Idealnie 
+by było mieć tam max. repository. Dostaje pobrane wcześniej obiekty i wykonuje zadania na agregacie. 
+Tu siedzi logika biznesowa naszej aplikacji. Np. opisany niżej przypadek **TO impl**  
+ 
+ 
+ **TO impl:**
+- przypadek gdy potrzebujemy zaktualizować cały agregat, bo zmieniło się coś co ma wpływ na jego stan.
+ U mnie np. Autor zmienia wydawcę z którym jest powiązany. Metoda do "przepisania" autora 
+ może być w aggregate root **Article** 
