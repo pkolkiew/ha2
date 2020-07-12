@@ -10,6 +10,8 @@ import lombok.Getter;
 @Getter
 @Builder
 public class ArticleDto {
-    private final String articleTitle;
+    private final String titleShort;
+    private final String titleLong;
     private final String content;
+    private final AuthorId authorId;
 }

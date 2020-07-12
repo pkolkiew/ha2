@@ -6,6 +6,7 @@ import org.springframework.data.domain.Pageable;
 import pl.pkolkiew.ha2.article.domain.exceptions.ArticleNotFoundException;
 
 import java.util.ArrayList;
+import java.util.Optional;
 import java.util.concurrent.ConcurrentHashMap;
 
 import static java.util.Objects.requireNonNull;
@@ -15,30 +16,33 @@ import static java.util.Objects.requireNonNull;
  * Created 7/11/2020
  */
 class InMemoryArticleRepository implements ArticleRepository {
-    private ConcurrentHashMap<String, ArticleEntity> map = new ConcurrentHashMap<>();
+    private ConcurrentHashMap<Long, ArticleEntity> map = new ConcurrentHashMap<>();
 
     @Override
     public ArticleEntity save(ArticleEntity article) {
         requireNonNull(article);
-        map.put(article.getTitle(), article);
+        map.put(article.getId(), article);
         return article;
     }
 
     @Override
-    public ArticleEntity findOne(String title) {
-        return map.get(title);
+    public Optional<ArticleEntity> findOne(String title) {
+        return map.values().stream().filter(x -> x.getTitle().getTitleLong().equalsIgnoreCase(title)).findFirst();
     }
 
     ArticleEntity findOneOrThrow(String title) {
-        ArticleEntity article = map.get(title);
-        if (article == null)
+        Optional<ArticleEntity> article = findOne(title);
+        if (!article.isPresent())
             throw new ArticleNotFoundException(title);
-        return article;
+        return article.get();
     }
 
     @Override
     public void delete(String title) {
-        map.remove(title);
+        Optional<ArticleEntity> article = findOne(title);
+        if (!article.isPresent())
+            throw new ArticleNotFoundException(title);
+        map.remove(article.get().getId());
     }
 
     @Override

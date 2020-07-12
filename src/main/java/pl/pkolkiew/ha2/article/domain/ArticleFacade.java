@@ -5,34 +5,52 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import pl.pkolkiew.ha2.article.domain.dto.ArticleDto;
+import pl.pkolkiew.ha2.article.domain.exceptions.AuthorNotFoundException;
+
+import java.util.Optional;
 
 import static java.util.Objects.nonNull;
 
 /**
+ * Fasada to serwis aplikacyjny w nomenklaturze DDD
+ * - integruje wiele zależności (repozytoria, fabryki, serwisy pomocnicze);
+ * - zapewnia transakcyjność i bezpieczeństwo (w tym wypadku poprzez adnotacje i AOP);
+ * - integruje komponenty aplikacyjne (w tym wypadu pracujący w sesji, zalogowany użytkownik);
+ * - orkiestruje obiekty domenowe.
+ * źr. <u>https://bottega.com.pl/pdf/materialy/ddd/ddd1.pdf</u>
+ *
  * @author pkolkiew
  * Created 7/10/2020
  */
 @Slf4j
 @AllArgsConstructor
 public class ArticleFacade {
-    private final ArticleRepository repository;
     private final ArticleUpdater updater;
     private final ArticlePublisher publisher;
+    private final ArticleService articleService;
+    private final AuthorService authorService;
     private final ArticleFactory factory = new ArticleFactory();
 
     public Page<ArticleDto> findAll(Pageable pageable) {
-        Page<ArticleEntity> all = repository.findAll(pageable);
+        Page<ArticleEntity> all = articleService.findAll(pageable);
         return factory.dto(all);
     }
 
     public ArticleDto show(String title) {
-        ArticleEntity entity = repository.findOne(title);
-        return factory.dto(entity);
+        nonNull(title);
+        ArticleEntity entity = articleService.findOne(title);
+        ArticleDto article = factory.dto(entity);
+        return article;
     }
 
     public void add(ArticleDto articleDto) {
         nonNull(articleDto);
-        ArticleEntity entity = factory.entity(articleDto);
-        repository.save(entity);
+
+        Optional<AuthorEntity> authorEntity = authorService.findOneById(articleDto.getAuthorId());
+        if(!authorEntity.isPresent())
+            throw new AuthorNotFoundException(authorEntity.get().getAuthorId());
+
+        ArticleEntity articleEntity = factory.entity(articleDto);
+        articleService.save(articleEntity, authorEntity);
     }
 }

@@ -17,8 +17,9 @@ class ArticleFactory {
 
     public ArticleDto dto(ArticleEntity entity) {
         return ArticleDto.builder()
-                .articleTitle(entity.getTitle())
-                .content(entity.getContent())
+                .titleShort(entity.getTitle().getTitleShort())
+                .titleLong(entity.getTitle().getTitleLong())
+                .content(entity.getContent().getContent())
                 .build();
     }
 

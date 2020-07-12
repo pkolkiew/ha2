@@ -15,9 +15,11 @@ class ArticleConfiguration {
         We need to get I/O in input parameters.
      */
     @Bean
-    ArticleFacade articleFacade(ArticleRepository articleRepository) {
+    ArticleFacade articleFacade(ArticleRepository articleRepository, AuthorRepository authorRepository) {
         ArticleUpdater updater = new ArticleUpdater(articleRepository);
         ArticlePublisher publisher = new ArticlePublisher(articleRepository);
-        return new ArticleFacade(articleRepository, updater, publisher);
+        ArticleService articleService = new ArticleService(articleRepository, authorRepository);
+        AuthorService authorService = new AuthorService(authorRepository);
+        return new ArticleFacade(updater, publisher, articleService, authorService);
     }
 }

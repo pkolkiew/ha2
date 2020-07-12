@@ -1,8 +1,9 @@
 package pl.pkolkiew.ha2.article.domain
 
-import org.springframework.data.domain.Page
+
 import org.springframework.data.domain.PageImpl
 import org.springframework.data.domain.PageRequest
+import org.springframework.data.domain.Sort
 import pl.pkolkiew.ha2.article.domain.dto.ArticleDto
 import spock.lang.Specification
 
@@ -12,15 +13,15 @@ import spock.lang.Specification
 class ArticleFacadeTest extends Specification {
     ArticleFacade facade = new ArticleConfiguration().articleFacade(new InMemoryArticleRepository())
 
-    ArticleDto flora = createArticleDto("flora", "Kwiatki i inne drzewka");
-    ArticleDto fauna = createArticleDto("fauna", "Psy i koty");
+    ArticleDto flora = createArticleDto("flora", "Kwiatki i inne drzewka")
+    ArticleDto fauna = createArticleDto("fauna", "Psy i koty")
 
     def "should add article"() {
         when: "we add an article"
             facade.add(flora)
 
         then: "system has an article"
-            facade.show(flora.articleTitle).articleTitle == flora.articleTitle
+            facade.show(flora.titleShort).titleShort == flora.titleShort
     }
 
     def "should list articles"() {
@@ -29,15 +30,15 @@ class ArticleFacadeTest extends Specification {
             facade.add(fauna)
 
         when: "we ask for all articles"
-            PageImpl<ArticleDto> foundArticles = facade.findAll(new PageRequest(0,10))
+            PageImpl<ArticleDto> foundArticles = facade.findAll(new PageRequest(0,10, Sort.unsorted()))
 
         then: "system returns articles we have added"
-            foundArticles.contains(flora)
+            foundArticles.getContent().contains(flora)
             foundArticles.contains(fauna)
     }
 
 
     private ArticleDto createArticleDto(String title, String content) {
-        return ArticleDto.builder().articleTitle(title).content(content).build();
+        return ArticleDto.builder().titleShort(title).content(content).build()
     }
 }
