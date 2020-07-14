@@ -16,4 +16,8 @@ class AuthorService {
     public Optional<AuthorEntity> findOneById(AuthorId authorId) {
         return authorRepository.findOneById(authorId);
     }
+
+    public void add(AuthorEntity authorEntity) {
+        authorRepository.add(authorEntity);
+    }
 }

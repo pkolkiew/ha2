@@ -3,9 +3,6 @@ package pl.pkolkiew.ha2.article.domain;
 import lombok.AllArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
-import pl.pkolkiew.ha2.article.domain.exceptions.AuthorNotFoundException;
-
-import java.util.Optional;
 
 /**
  * @author pkolkiew
@@ -14,7 +11,6 @@ import java.util.Optional;
 @AllArgsConstructor
 class ArticleService {
     private final ArticleRepository articleRepository;
-    private final AuthorRepository authorRepository;
 
     public ArticleEntity findOne(String title) {
         return articleRepository.findOne(title).get();
@@ -24,7 +20,7 @@ class ArticleService {
         return articleRepository.findAll(pageable);
     }
 
-    public void save(ArticleEntity entity, Optional<AuthorEntity> authorEntity) {
+    public void save(ArticleEntity entity) {
 
         articleRepository.save(entity);
     }

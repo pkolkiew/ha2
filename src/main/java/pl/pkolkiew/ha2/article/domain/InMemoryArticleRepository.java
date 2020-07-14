@@ -21,6 +21,8 @@ class InMemoryArticleRepository implements ArticleRepository {
     @Override
     public ArticleEntity save(ArticleEntity article) {
         requireNonNull(article);
+        if(article.getId() == null)
+            article.generateId();
         map.put(article.getId(), article);
         return article;
     }

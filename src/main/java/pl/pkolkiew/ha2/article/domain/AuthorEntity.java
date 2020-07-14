@@ -15,9 +15,9 @@ import java.io.Serializable;
  * @author pkolkiew
  * Created 7/12/2020
  */
-@Entity(name = "AUTHOR")
 @Getter
 @Builder
+@Entity(name = "AUTHOR")
 @NoArgsConstructor
 @AllArgsConstructor
 class AuthorEntity implements Serializable {

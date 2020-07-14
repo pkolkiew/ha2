@@ -10,6 +10,10 @@ import org.springframework.context.annotation.Configuration;
 @Configuration
 class ArticleConfiguration {
 
+
+    ArticleFacade articleFacade() {
+        return articleFacade(new InMemoryArticleRepository(), new InMemoryAuthorRepository());
+    }
     /*
         It's called 'JavaConfig'.
         We need to get I/O in input parameters.
@@ -18,7 +22,7 @@ class ArticleConfiguration {
     ArticleFacade articleFacade(ArticleRepository articleRepository, AuthorRepository authorRepository) {
         ArticleUpdater updater = new ArticleUpdater(articleRepository);
         ArticlePublisher publisher = new ArticlePublisher(articleRepository);
-        ArticleService articleService = new ArticleService(articleRepository, authorRepository);
+        ArticleService articleService = new ArticleService(articleRepository);
         AuthorService authorService = new AuthorService(authorRepository);
         return new ArticleFacade(updater, publisher, articleService, authorService);
     }

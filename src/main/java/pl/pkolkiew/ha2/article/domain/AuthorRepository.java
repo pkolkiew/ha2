@@ -13,4 +13,5 @@ interface AuthorRepository extends Repository<AuthorEntity, Long> {
 
     Optional<AuthorEntity> findOneById(AuthorId authorId);
 
+    void add(AuthorEntity authorEntity);
 }

@@ -1,6 +1,7 @@
 package pl.pkolkiew.ha2.article.domain.dto;
 
 import lombok.Builder;
+import lombok.EqualsAndHashCode;
 import lombok.Getter;
 
 /**
@@ -9,6 +10,7 @@ import lombok.Getter;
  */
 @Getter
 @Builder
+@EqualsAndHashCode
 public class ArticleDto {
     private final String titleShort;
     private final String titleLong;

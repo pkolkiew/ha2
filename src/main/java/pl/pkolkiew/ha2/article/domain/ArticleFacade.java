@@ -4,12 +4,16 @@ import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+import org.springframework.transaction.annotation.Transactional;
 import pl.pkolkiew.ha2.article.domain.dto.ArticleDto;
+import pl.pkolkiew.ha2.article.domain.dto.AuthorDto;
+import pl.pkolkiew.ha2.article.domain.dto.AuthorId;
 import pl.pkolkiew.ha2.article.domain.exceptions.AuthorNotFoundException;
 
 import java.util.Optional;
 
 import static java.util.Objects.nonNull;
+import static java.util.Objects.requireNonNull;
 
 /**
  * Fasada to serwis aplikacyjny w nomenklaturze DDD
@@ -39,18 +43,26 @@ public class ArticleFacade {
     public ArticleDto show(String title) {
         nonNull(title);
         ArticleEntity entity = articleService.findOne(title);
-        ArticleDto article = factory.dto(entity);
+        ArticleDto article = entity.dto();
         return article;
     }
 
+    @Transactional
     public void add(ArticleDto articleDto) {
-        nonNull(articleDto);
+        requireNonNull(articleDto);
 
         Optional<AuthorEntity> authorEntity = authorService.findOneById(articleDto.getAuthorId());
         if(!authorEntity.isPresent())
             throw new AuthorNotFoundException(authorEntity.get().getAuthorId());
 
-        ArticleEntity articleEntity = factory.entity(articleDto);
-        articleService.save(articleEntity, authorEntity);
+        ArticleEntity articleEntity = factory.from(articleDto, authorEntity.get());
+        articleService.save(articleEntity);
     }
+
+    public void add(AuthorId authorId, AuthorDto authorDto){
+        requireNonNull(authorDto);
+        AuthorEntity authorEntity = factory.from(authorId, null, authorDto);
+        authorService.add(authorEntity);
+    }
+
 }
