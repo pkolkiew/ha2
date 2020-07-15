@@ -50,10 +50,9 @@ public class ArticleFacade {
     @Transactional
     public void add(ArticleDto articleDto) {
         requireNonNull(articleDto);
-
         AuthorEntity authorEntity = authorService.findOneById(articleDto.getAuthorId());
 
-        ArticleEntity articleEntity = factory.from(articleDto, authorEntity.get());
+        ArticleEntity articleEntity = factory.from(articleDto, authorEntity);
         articleService.save(articleEntity);
     }
 
