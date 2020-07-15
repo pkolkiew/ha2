@@ -21,7 +21,6 @@ class ArticleService {
     }
 
     public void save(ArticleEntity entity) {
-
         articleRepository.save(entity);
     }
 }
