@@ -18,7 +18,7 @@ import static java.util.Objects.requireNonNull;
 /**
  * Fasada to serwis aplikacyjny w nomenklaturze DDD
  * - integruje wiele zależności (repozytoria, fabryki, serwisy pomocnicze);
- * - zapewnia transakcyjność i bezpieczeństwo (w tym wypadku poprzez adnotacje i AOP);
+ * - zapewnia transakcyjność i bezpieczeństwo (np. poprzez adnotacje i AOP);
  * - integruje komponenty aplikacyjne (w tym wypadu pracujący w sesji, zalogowany użytkownik);
  * - orkiestruje obiekty domenowe.
  * źr. <u>https://bottega.com.pl/pdf/materialy/ddd/ddd1.pdf</u>
@@ -51,15 +51,18 @@ public class ArticleFacade {
     public void add(ArticleDto articleDto) {
         requireNonNull(articleDto);
 
-        Optional<AuthorEntity> authorEntity = authorService.findOneById(articleDto.getAuthorId());
-        if(!authorEntity.isPresent())
-            throw new AuthorNotFoundException(authorEntity.get().getAuthorId());
+        AuthorEntity authorEntity = authorService.findOneById(articleDto.getAuthorId());
 
         ArticleEntity articleEntity = factory.from(articleDto, authorEntity.get());
         articleService.save(articleEntity);
     }
 
-    public void add(AuthorId authorId, AuthorDto authorDto){
+    /**
+     * To jest do wywalenia do własnej domeny, na potrzeby przykładu zostało zaimplementowane tutaj
+     * @param authorId
+     * @param authorDto
+     */
+    public void add(AuthorId authorId, AuthorDto authorDto) {
         requireNonNull(authorDto);
         AuthorEntity authorEntity = factory.from(authorId, null, authorDto);
         authorService.add(authorEntity);

@@ -2,6 +2,7 @@ package pl.pkolkiew.ha2.article.domain;
 
 import lombok.AllArgsConstructor;
 import pl.pkolkiew.ha2.article.domain.dto.AuthorId;
+import pl.pkolkiew.ha2.article.domain.exceptions.AuthorNotFoundException;
 
 import java.util.Optional;
 
@@ -13,8 +14,11 @@ import java.util.Optional;
 class AuthorService {
     private final AuthorRepository authorRepository;
 
-    public Optional<AuthorEntity> findOneById(AuthorId authorId) {
-        return authorRepository.findOneById(authorId);
+    public AuthorEntity findOneById(AuthorId authorId) {
+        Optional<AuthorEntity> authorEntity = authorRepository.findOneById(authorId);
+        if(!authorEntity.isPresent())
+            throw new AuthorNotFoundException(authorId.getAuthorId());
+        return authorEntity.get();
     }
 
     public void add(AuthorEntity authorEntity) {
