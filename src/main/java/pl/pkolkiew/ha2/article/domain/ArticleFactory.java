@@ -6,7 +6,6 @@ import pl.pkolkiew.ha2.article.domain.dto.ArticleDto;
 import pl.pkolkiew.ha2.article.domain.dto.AuthorDto;
 import pl.pkolkiew.ha2.article.domain.dto.AuthorId;
 
-import java.util.Optional;
 import java.util.stream.Collectors;
 
 import static java.util.Objects.requireNonNull;

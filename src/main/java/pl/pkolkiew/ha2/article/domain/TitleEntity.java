@@ -20,10 +20,4 @@ class TitleEntity {
     private String titleShort;
     private String titleLong;
 
-//    public static TitleEntity of(Title title) {
-//        return TitleEntity.builder()
-//                .titleShort(title.getTitleShort())
-//                .titleLong(title.getTitleLong())
-//                .build();
-//    }
 }

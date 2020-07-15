@@ -8,9 +8,6 @@ import org.springframework.transaction.annotation.Transactional;
 import pl.pkolkiew.ha2.article.domain.dto.ArticleDto;
 import pl.pkolkiew.ha2.article.domain.dto.AuthorDto;
 import pl.pkolkiew.ha2.article.domain.dto.AuthorId;
-import pl.pkolkiew.ha2.article.domain.exceptions.AuthorNotFoundException;
-
-import java.util.Optional;
 
 import static java.util.Objects.nonNull;
 import static java.util.Objects.requireNonNull;
@@ -58,6 +55,7 @@ public class ArticleFacade {
 
     /**
      * To jest do wywalenia do własnej domeny, na potrzeby przykładu zostało zaimplementowane tutaj
+     *
      * @param authorId
      * @param authorDto
      */
