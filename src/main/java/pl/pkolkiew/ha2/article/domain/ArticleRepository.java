@@ -5,9 +5,6 @@ import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.repository.Repository;
 import pl.pkolkiew.ha2.article.domain.exceptions.ArticleNotFoundException;
-import pl.pkolkiew.ha2.article.domain.query.ArticleQueryDto;
-import pl.pkolkiew.ha2.article.domain.query.ArticleQueryRepository;
-import pl.pkolkiew.ha2.article.domain.query.ArticleSearchParams;
 
 import java.util.ArrayList;
 import java.util.Optional;
@@ -21,8 +18,11 @@ import static java.util.Objects.requireNonNull;
  */
 interface ArticleRepository extends Repository<ArticleEntity, String> {
     ArticleEntity save(ArticleEntity entity);
+
     Optional<ArticleEntity> findOne(String title);
+
     void delete(String title);
+
     Page<ArticleEntity> findAll(Pageable pageable);
 }
 
@@ -30,7 +30,7 @@ interface ArticleRepository extends Repository<ArticleEntity, String> {
  * @author pkolkiew
  * Created 7/11/2020
  */
-class InMemoryArticleRepository implements ArticleRepository, ArticleQueryRepository {
+class InMemoryArticleRepository implements ArticleRepository {
     private ConcurrentHashMap<Long, ArticleEntity> map = new ConcurrentHashMap<>();
 
     @Override
@@ -66,15 +66,5 @@ class InMemoryArticleRepository implements ArticleRepository, ArticleQueryReposi
     public Page<ArticleEntity> findAll(Pageable pageable) {
         return new PageImpl<>(new ArrayList<>(map.values()), pageable, map.size());
     }
-
-    @Override
-    public Page<ArticleQueryDto> findArticle(ArticleSearchParams articleSearchParams) {
-        // W normalnym przypadku z articleSearchParams
-        // 1. Tworzymy adapter do ktorego wstrzykujemy nasz interfejs extend'ujacy Crud/Jpa Repository
-        // 2. Tworzymy Specification na podstawie ArticleSearchParams
-        // 3. Piszemy JPQL zwracajacy DTO z tym co potrzebujemy w reponse
-        return null;
-    }
-
 
 }

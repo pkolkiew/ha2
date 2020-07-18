@@ -2,6 +2,8 @@ package pl.pkolkiew.ha2.article.domain.query;
 
 import lombok.Getter;
 import lombok.Value;
+import pl.pkolkiew.ha2.article.domain.dto.ArticleId;
+import pl.pkolkiew.ha2.article.domain.dto.AuthorId;
 
 /**
  * @author pkolkiew
@@ -11,6 +13,7 @@ import lombok.Value;
 @Value(staticConstructor = "of")
 public class ArticleSearchParams {
     private final String title;
-    private final Long authorId;
+    private final ArticleId articleId;
+    private final AuthorId authorId;
 
 }
