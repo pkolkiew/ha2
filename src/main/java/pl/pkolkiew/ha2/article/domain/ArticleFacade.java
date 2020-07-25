@@ -8,6 +8,7 @@ import org.springframework.transaction.annotation.Transactional;
 import pl.pkolkiew.ha2.article.domain.dto.ArticleDto;
 import pl.pkolkiew.ha2.article.domain.dto.AuthorDto;
 import pl.pkolkiew.ha2.article.domain.dto.AuthorId;
+import pl.pkolkiew.ha2.author.domain.AuthorFacade;
 
 import static java.util.Objects.nonNull;
 import static java.util.Objects.requireNonNull;
@@ -29,7 +30,7 @@ public class ArticleFacade {
     private final ArticleUpdater updater;
     private final ArticlePublisher publisher;
     private final ArticleService articleService;
-    private final AuthorService authorService;
+    private final AuthorFacade authorFacade;
     private final ArticleFactory factory = new ArticleFactory();
 
     public Page<ArticleDto> findAll(Pageable pageable) {

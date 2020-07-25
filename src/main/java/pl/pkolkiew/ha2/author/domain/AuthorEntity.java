@@ -1,9 +1,10 @@
-package pl.pkolkiew.ha2.article.domain;
+package pl.pkolkiew.ha2.author.domain;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import pl.pkolkiew.ha2.article.domain.PublisherCompanyId;
 
 import javax.persistence.Column;
 import javax.persistence.Embedded;

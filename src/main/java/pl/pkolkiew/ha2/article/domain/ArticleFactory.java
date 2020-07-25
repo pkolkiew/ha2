@@ -5,6 +5,8 @@ import org.springframework.data.domain.PageImpl;
 import pl.pkolkiew.ha2.article.domain.dto.ArticleDto;
 import pl.pkolkiew.ha2.article.domain.dto.AuthorDto;
 import pl.pkolkiew.ha2.article.domain.dto.AuthorId;
+import pl.pkolkiew.ha2.author.domain.AuthorEntity;
+import pl.pkolkiew.ha2.author.domain.PublisherCompanyId;
 
 import java.util.stream.Collectors;
 
@@ -31,15 +33,6 @@ class ArticleFactory {
                         .content(articleDto.getContent())
                         .build())
                 .authorEntity(authorEntity)
-                .build();
-    }
-
-    public AuthorEntity from(AuthorId authorId, PublisherCompanyId publisherCompanyId, AuthorDto authorDto) {
-        requireNonNull(authorDto);
-        return AuthorEntity.builder()
-                .authorId(authorId.getAuthorId())
-                .name(authorDto.getName())
-                .publisherCompanyOwnerId(publisherCompanyId)
                 .build();
     }
 

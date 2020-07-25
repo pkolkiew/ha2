@@ -2,6 +2,9 @@ package pl.pkolkiew.ha2.article.domain;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import pl.pkolkiew.ha2.author.domain.AuthorRepository;
+import pl.pkolkiew.ha2.author.domain.AuthorService;
+import pl.pkolkiew.ha2.author.domain.InMemoryAuthorRepository;
 
 /**
  * @author pkolkiew

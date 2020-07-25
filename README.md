@@ -8,7 +8,7 @@ TODO TODO TODO...
 2. Tworzymy sobie scenariusze testowe dla tzw. 'happy path' - takie ścieżki które mają dla nas zarabiać pieniądze;
 3. Scenariusz testowy przerabiamy na test akceptacyjny w naszej aplikacji (groovy: given->when->then);
 4. Architektura
-5. Na podstawie powyższych staramy się wydzielić bounded context/y, np. artykuł, autor, wydawca, użytkownik itd.
+5. Na podstawie powyższych staramy się wydzielić bounded context/y, np. obszar artykułów z domenami takimi jak: artykuł, autor, wydawca, użytkownik itd.
 6. Weryfikacja architektury na zasadzie co z czym gada, np:
     - użytkownik (tutaj autor) tworzy artykuł (/createArticle), w międzyczasie uruchamiane są walidacje typu np.
     czy artykuł o takiej nazwie już istnieje (zatem powinno być coś na zasadzie /findArticleBy...); 
@@ -38,3 +38,16 @@ Tu siedzi logika biznesowa naszej aplikacji. Np. opisany niżej przypadek **TO i
 - przypadek gdy potrzebujemy zaktualizować cały agregat, bo zmieniło się coś co ma wpływ na jego stan.
  U mnie np. Autor zmienia wydawcę z którym jest powiązany. Metoda do "przepisania" autora 
  może być w aggregate root **Article** 
+ 
+ 
+ 
+ -----------------------------------------------------------------------------
+ 
+ 
+ Wymagania dla domeny 'author':
+ 1. Dodawanie użytkowników, użytkownik ma mieć unikalny swój login (logowanie do systemu),
+  pseudonim (to będzie wyświetlane pod artykułami oraz na stronie) oraz jakiś personalId;
+ 2. Wyszukiwanie użytkownika po jego "pseudonimie" lub imieniu plus nazwisku;
+ 3. Zwraca listę (id) artykułów danego użytkownika;
+ 
+ 

@@ -1,4 +1,4 @@
-package pl.pkolkiew.ha2.article.domain;
+package pl.pkolkiew.ha2.author.domain;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;

@@ -1,8 +1,10 @@
-package pl.pkolkiew.ha2.article.domain;
+package pl.pkolkiew.ha2.author.domain;
 
 import lombok.AllArgsConstructor;
+import pl.pkolkiew.ha2.article.domain.AuthorRepository;
 import pl.pkolkiew.ha2.article.domain.dto.AuthorId;
 import pl.pkolkiew.ha2.article.domain.exceptions.AuthorNotFoundException;
+import pl.pkolkiew.ha2.author.domain.AuthorEntity;
 
 import java.util.Optional;
 

@@ -3,6 +3,7 @@ package pl.pkolkiew.ha2.article.domain;
 import lombok.*;
 import pl.pkolkiew.ha2.article.domain.dto.ArticleDto;
 import pl.pkolkiew.ha2.article.domain.dto.AuthorId;
+import pl.pkolkiew.ha2.author.domain.AuthorEntity;
 
 import javax.persistence.*;
 import java.io.Serializable;
