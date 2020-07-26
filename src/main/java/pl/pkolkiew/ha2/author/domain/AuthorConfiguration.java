@@ -1,8 +1,17 @@
 package pl.pkolkiew.ha2.author.domain;
 
-class AuthorConfiguration {
-    public AuthorFacade authorFacade() {
-        // TODO:
-        return null;
+import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Configuration;
+
+@Configuration
+public class AuthorConfiguration {
+
+    AuthorFacade authorFacade() {
+        return new AuthorFacade(new InMemoryAuthorRepository());
+    }
+
+    @Bean
+    AuthorFacade authorFacade(AuthorRepository authorRepository) {
+        return new AuthorFacade(authorRepository);
     }
 }

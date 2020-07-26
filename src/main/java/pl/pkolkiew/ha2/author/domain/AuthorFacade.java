@@ -15,6 +15,10 @@ public class AuthorFacade {
         this.authorService = new AuthorService(authorRepository);
     }
 
+    public static AuthorFacade of() {
+        return new AuthorConfiguration().authorFacade();
+    }
+
     /**
      * To jest do wywalenia do własnej domeny, na potrzeby przykładu zostało zaimplementowane tutaj
      *
