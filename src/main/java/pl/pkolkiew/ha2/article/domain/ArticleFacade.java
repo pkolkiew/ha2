@@ -6,8 +6,6 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.transaction.annotation.Transactional;
 import pl.pkolkiew.ha2.article.domain.dto.ArticleDto;
-import pl.pkolkiew.ha2.article.domain.dto.AuthorDto;
-import pl.pkolkiew.ha2.article.domain.dto.AuthorId;
 import pl.pkolkiew.ha2.author.domain.AuthorFacade;
 
 import static java.util.Objects.nonNull;
@@ -48,22 +46,7 @@ public class ArticleFacade {
     @Transactional
     public void add(ArticleDto articleDto) {
         requireNonNull(articleDto);
-        AuthorEntity authorEntity = authorService.findOneById(articleDto.getAuthorId());
-
-        ArticleEntity articleEntity = factory.from(articleDto, authorEntity);
-        articleService.save(articleEntity);
-    }
-
-    /**
-     * To jest do wywalenia do własnej domeny, na potrzeby przykładu zostało zaimplementowane tutaj
-     *
-     * @param authorId
-     * @param authorDto
-     */
-    public void add(AuthorId authorId, AuthorDto authorDto) {
-        requireNonNull(authorDto);
-        AuthorEntity authorEntity = factory.from(authorId, null, authorDto);
-        authorService.add(authorEntity);
+        articleService.save(articleDto);
     }
 
 }

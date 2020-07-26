@@ -10,7 +10,7 @@ import java.util.concurrent.ConcurrentHashMap;
  * @author pkolkiew
  * Created 7/11/2020
  */
-interface AuthorRepository extends Repository<AuthorEntity, Long> {
+public interface AuthorRepository extends Repository<AuthorEntity, Long> {
 
     Optional<AuthorEntity> findOneById(AuthorId authorId);
 

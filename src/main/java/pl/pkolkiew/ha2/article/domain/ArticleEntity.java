@@ -3,7 +3,6 @@ package pl.pkolkiew.ha2.article.domain;
 import lombok.*;
 import pl.pkolkiew.ha2.article.domain.dto.ArticleDto;
 import pl.pkolkiew.ha2.article.domain.dto.AuthorId;
-import pl.pkolkiew.ha2.author.domain.AuthorEntity;
 
 import javax.persistence.*;
 import java.io.Serializable;
@@ -25,16 +24,15 @@ class ArticleEntity implements Serializable {
     private TitleEntity title;
     @Embedded
     private ContentEntity content;
-    @OneToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "author_Id", nullable = false)
-    private AuthorEntity authorEntity;
+
+    private Long authorId;
 
     ArticleDto dto() {
         return ArticleDto.builder()
                 .titleShort(this.title.getTitleShort())
                 .titleLong(this.title.getTitleLong())
                 .content(this.content.getContent())
-                .authorId(AuthorId.of(authorEntity.getAuthorId()))
+                .authorId(AuthorId.of(this.authorId))
                 .build();
     }
 

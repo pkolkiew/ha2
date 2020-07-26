@@ -4,7 +4,6 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
-import pl.pkolkiew.ha2.article.domain.PublisherCompanyId;
 
 import javax.persistence.Column;
 import javax.persistence.Embedded;
