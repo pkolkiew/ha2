@@ -45,7 +45,7 @@ Tu siedzi logika biznesowa naszej aplikacji. Np. opisany niżej przypadek **TO i
  
  
  Wymagania dla domeny 'author':
- 1. Dodawanie użytkowników, użytkownik ma mieć unikalny swój login (logowanie do systemu),
+ 1. Dodawanie użytkowników, użytkownik ma mieć unikalny login (logowanie do systemu),
   pseudonim (to będzie wyświetlane pod artykułami oraz na stronie) oraz jakiś personalId;
  2. Wyszukiwanie użytkownika po jego "pseudonimie" lub imieniu plus nazwisku;
  3. Zwraca listę (id) artykułów danego użytkownika;
