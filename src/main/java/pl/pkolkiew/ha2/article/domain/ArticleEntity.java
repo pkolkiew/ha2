@@ -1,12 +1,19 @@
 package pl.pkolkiew.ha2.article.domain;
 
-import lombok.*;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
 import pl.pkolkiew.ha2.article.domain.dto.ArticleDto;
 import pl.pkolkiew.ha2.article.domain.dto.AuthorId;
 
-import javax.persistence.*;
+import javax.persistence.Embedded;
+import javax.persistence.Entity;
+import javax.persistence.Id;
+import javax.persistence.OneToMany;
 import java.io.Serializable;
 import java.util.Random;
+import java.util.Set;
 
 /**
  * @author pkolkiew
@@ -26,6 +33,9 @@ class ArticleEntity implements Serializable {
     private ContentEntity content;
 
     private Long authorId;
+
+    @OneToMany(mappedBy = "article")
+    private Set<AttachmentEntity> attachments;
 
     ArticleDto dto() {
         return ArticleDto.builder()
