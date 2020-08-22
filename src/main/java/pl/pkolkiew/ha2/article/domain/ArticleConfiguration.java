@@ -2,8 +2,8 @@ package pl.pkolkiew.ha2.article.domain;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import pl.pkolkiew.ha2.article.domain.query.ArticleQueryRepository;
 import pl.pkolkiew.ha2.author.domain.AuthorFacade;
-
 
 /**
  * @author pkolkiew
@@ -17,6 +17,11 @@ class ArticleConfiguration {
         return articleFacade(new InMemoryArticleRepository(), authorFacade);
     }
 
+    @Bean
+    ArticleQueryRepository articleQueryRepository(ArticleQueryCrudRepository articleQueryCrudRepository) {
+        return new ArticleQuerySpringRepository(articleQueryCrudRepository);
+    }
+
     /*
         It's called 'JavaConfig'.
         We need to get I/O in input parameters.
@@ -28,4 +33,5 @@ class ArticleConfiguration {
         ArticleService articleService = new ArticleService(articleRepository);
         return new ArticleFacade(updater, publisher, articleService, authorFacade);
     }
+
 }

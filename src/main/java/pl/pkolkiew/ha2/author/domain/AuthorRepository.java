@@ -1,5 +1,6 @@
 package pl.pkolkiew.ha2.author.domain;
 
+import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.Repository;
 import pl.pkolkiew.ha2.article.domain.dto.AuthorId;
 
@@ -12,13 +13,14 @@ import java.util.concurrent.ConcurrentHashMap;
  */
 public interface AuthorRepository extends Repository<AuthorEntity, Long> {
 
+    @Query("SELECT s FROM AUTHOR s WHERE s.authorId =:authorId")
     Optional<AuthorEntity> findOneById(AuthorId authorId);
 
-    void add(AuthorEntity authorEntity);
+    void save(AuthorEntity authorEntity);
 }
 
 class InMemoryAuthorRepository implements AuthorRepository {
-    private ConcurrentHashMap<Long, AuthorEntity> map = new ConcurrentHashMap<>();
+    private final ConcurrentHashMap<Long, AuthorEntity> map = new ConcurrentHashMap<>();
 
     @Override
     public Optional<AuthorEntity> findOneById(AuthorId authorId) {
@@ -26,7 +28,7 @@ class InMemoryAuthorRepository implements AuthorRepository {
     }
 
     @Override
-    public void add(AuthorEntity authorEntity) {
+    public void save(AuthorEntity authorEntity) {
         map.put(authorEntity.getAuthorId(), authorEntity);
     }
 

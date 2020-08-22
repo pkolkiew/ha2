@@ -3,6 +3,7 @@ package pl.pkolkiew.ha2.article.domain;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.Repository;
 import pl.pkolkiew.ha2.article.domain.exceptions.ArticleNotFoundException;
 
@@ -19,8 +20,10 @@ import static java.util.Objects.requireNonNull;
 interface ArticleRepository extends Repository<ArticleEntity, String> {
     ArticleEntity save(ArticleEntity entity);
 
+    @Query("SELECT s FROM ARTICLE s WHERE s.title =:title")
     Optional<ArticleEntity> findOne(String title);
 
+    @Query("DELETE FROM ARTICLE s WHERE s.title =:title")
     void delete(String title);
 
     Page<ArticleEntity> findAll(Pageable pageable);
@@ -31,7 +34,7 @@ interface ArticleRepository extends Repository<ArticleEntity, String> {
  * Created 7/11/2020
  */
 class InMemoryArticleRepository implements ArticleRepository {
-    private ConcurrentHashMap<Long, ArticleEntity> map = new ConcurrentHashMap<>();
+    private final ConcurrentHashMap<Long, ArticleEntity> map = new ConcurrentHashMap<>();
 
     @Override
     public ArticleEntity save(ArticleEntity article) {
@@ -48,18 +51,17 @@ class InMemoryArticleRepository implements ArticleRepository {
     }
 
     ArticleEntity findOneOrThrow(String title) {
-        Optional<ArticleEntity> article = findOne(title);
-        if (!article.isPresent())
-            throw new ArticleNotFoundException(title);
-        return article.get();
+        return findOne(title).stream().
+                findFirst().
+                orElseThrow(() -> new ArticleNotFoundException(title));
     }
 
     @Override
     public void delete(String title) {
-        Optional<ArticleEntity> article = findOne(title);
-        if (!article.isPresent())
-            throw new ArticleNotFoundException(title);
-        map.remove(article.get().getId());
+        ArticleEntity article = findOne(title).stream()
+                .findFirst()
+                .orElseThrow(() -> new ArticleNotFoundException(title));
+        map.remove(article.getId());
     }
 
     @Override
