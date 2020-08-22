@@ -19,12 +19,6 @@ public class AuthorFacade {
         return new AuthorConfiguration().authorFacade();
     }
 
-    /**
-     * To jest do wywalenia do własnej domeny, na potrzeby przykładu zostało zaimplementowane tutaj
-     *
-     * @param authorId
-     * @param authorDto
-     */
     public void add(AuthorId authorId, AuthorDto authorDto) {
         requireNonNull(authorDto);
         AuthorEntity authorEntity = factory.from(authorId, null, authorDto);
