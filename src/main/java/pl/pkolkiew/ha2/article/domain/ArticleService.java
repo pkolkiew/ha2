@@ -5,8 +5,6 @@ import org.springframework.data.domain.Pageable;
 import pl.pkolkiew.ha2.article.domain.dto.ArticleDto;
 import pl.pkolkiew.ha2.article.domain.exceptions.ArticleAlreadyExistException;
 
-import java.util.Optional;
-
 /**
  * @author pkolkiew
  * Created 7/12/2020
@@ -31,9 +29,11 @@ class ArticleService {
     }
 
     public void save(ArticleDto dto) {
-        Optional<ArticleEntity> dbEntity = articleRepository.findOne(dto.getTitleLong());
-        if(dbEntity.isPresent())
-            throw new ArticleAlreadyExistException(dto.getTitleLong());
+        articleRepository.findOne(dto.getTitleLong()).stream()
+                .findAny()
+                .ifPresent(entity -> {
+                    throw new ArticleAlreadyExistException(dto.getTitleLong());
+                });
         ArticleEntity articleEntity = factory.from(dto);
         articleRepository.save(articleEntity);
     }
