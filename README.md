@@ -34,14 +34,13 @@ by było mieć tam max. repository. Dostaje pobrane wcześniej obiekty i wykonuj
 Tu siedzi logika biznesowa naszej aplikacji. Np. opisany niżej przypadek **TO impl**  
  
  
- **TO impl:**
+**TO impl:**
 - przypadek gdy potrzebujemy zaktualizować cały agregat, bo zmieniło się coś co ma wpływ na jego stan.
  U mnie np. Autor zmienia wydawcę z którym jest powiązany. Metoda do "przepisania" autora 
  może być w aggregate root **Article** 
  
  
- 
- -----------------------------------------------------------------------------
+-----------------------------------------------------------------------------
  
  
  Wymagania dla domeny 'author':
@@ -51,3 +50,19 @@ Tu siedzi logika biznesowa naszej aplikacji. Np. opisany niżej przypadek **TO i
  3. Zwraca listę (id) artykułów danego użytkownika;
  
  
+**Technikalia**
+ 
+ 1. Wspólna klasa bazowa dla agregatów:
+    - zaimplementowana w *BaseAggregateRoot*;
+    - abstract klasę z której dziedziczymy oznaczamy `@MappedSuperclass` - odpowiednik `@Entity`
+    - nadpisujemy *EmbeddedId* z klasy *AggregateId* w klasie *BioEntity*:
+
+        
+    ``java
+    
+        @EmbeddedId
+        @AttributeOverrides({
+                @AttributeOverride(name = "aggregateId", column = @Column(name = "bioId", nullable = false))})
+        private AggregateId bioId;
+    
+    ``  
