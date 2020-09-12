@@ -5,4 +5,11 @@ package pl.pkolkiew.ha2.bio.domain;
  * Created 7/11/2020
  */
 public class BioFacade {
+
+    void abstractBioCreation() {
+        BioEntity bio = new BioEntity("name");
+
+
+    }
+
 }
