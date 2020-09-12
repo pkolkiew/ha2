@@ -9,6 +9,7 @@ import java.util.Objects;
  */
 @Embeddable
 public class AggregateId implements Serializable {
+
     private Long aggregateId;
 
     public AggregateId(Long aggregateId) {

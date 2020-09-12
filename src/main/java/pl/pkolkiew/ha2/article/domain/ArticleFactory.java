@@ -3,7 +3,6 @@ package pl.pkolkiew.ha2.article.domain;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
 import pl.pkolkiew.ha2.article.domain.dto.ArticleDto;
-import pl.pkolkiew.ha2.article.domain.dto.AuthorId;
 
 import java.util.stream.Collectors;
 
