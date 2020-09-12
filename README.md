@@ -55,11 +55,12 @@ Tu siedzi logika biznesowa naszej aplikacji. Np. opisany niżej przypadek **TO i
  1. Wspólna klasa bazowa dla agregatów:
     - zaimplementowana w *BaseAggregateRoot*;
     - abstract klasę z której dziedziczymy oznaczamy `@MappedSuperclass` - odpowiednik `@Entity`
-    - nadpisujemy *EmbeddedId* z klasy *AggregateId* w klasie *BioEntity*:
-    
-    ``
+    - nadpisujemy *EmbeddedId* z klasy *AggregateId* w klasie *BioEntity*:  
+
+    ```  
         @EmbeddedId
         @AttributeOverrides({
                 @AttributeOverride(name = "aggregateId", column = @Column(name = "bioId", nullable = false))})
         private AggregateId bioId;
-    ``        
+    ```
+ 2. cdn.
