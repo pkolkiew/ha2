@@ -12,16 +12,12 @@ public class AggregateId implements Serializable {
     private Long aggregateId;
 
     public AggregateId(Long aggregateId) {
-        Objects.nonNull(aggregateId);
+        Objects.requireNonNull(aggregateId);
         this.aggregateId = aggregateId;
     }
 
     protected AggregateId() {
     }
-
-//    public static AggregateId generate(){
-//        return new AggregateId(UUID.randomUUID().toString());
-//    }
 
     public Long getId() {
         return aggregateId;
