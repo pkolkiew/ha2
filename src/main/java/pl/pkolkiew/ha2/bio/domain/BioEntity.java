@@ -2,8 +2,8 @@ package pl.pkolkiew.ha2.bio.domain;
 
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import pl.pkolkiew.ha2.infrastructure.shared.AggregateId;
-import pl.pkolkiew.ha2.infrastructure.shared.BaseAggregateRoot;
+import pl.pkolkiew.ha2.infrastructure.shared.aggregates.AggregateId;
+import pl.pkolkiew.ha2.infrastructure.shared.aggregates.BaseAggregateRoot;
 
 import javax.persistence.*;
 

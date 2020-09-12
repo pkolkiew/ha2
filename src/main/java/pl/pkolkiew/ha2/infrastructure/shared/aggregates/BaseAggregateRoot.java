@@ -1,9 +1,10 @@
-package pl.pkolkiew.ha2.infrastructure.shared;
+package pl.pkolkiew.ha2.infrastructure.shared.aggregates;
 
 import lombok.AccessLevel;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import org.springframework.context.annotation.Scope;
+import pl.pkolkiew.ha2.infrastructure.shared.events.DomainEventPublisher;
 
 import javax.persistence.*;
 import java.sql.Timestamp;
@@ -22,11 +23,6 @@ public abstract class BaseAggregateRoot {
     public enum AggregateStatus {
         ACTIVE, ARCHIVE
     }
-//
-//    @EmbeddedId
-//    @AttributeOverrides({
-//            @AttributeOverride(name = "idValue", column = @Column(name = "aggregateId", nullable = false))})
-//    protected AggregateId aggregateId;
 
     protected boolean isActive;
     protected LocalDateTime insertDate;
@@ -39,10 +35,6 @@ public abstract class BaseAggregateRoot {
 
     @Transient
     protected DomainEventPublisher eventPublisher;
-
-//    public AggregateId getAggregateId() {
-//        return aggregateId;
-//    }
 
     public void markAsRemoved() {
         aggregateStatus = AggregateStatus.ARCHIVE;

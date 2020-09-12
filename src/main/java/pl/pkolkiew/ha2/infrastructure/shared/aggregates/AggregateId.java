@@ -1,4 +1,4 @@
-package pl.pkolkiew.ha2.infrastructure.shared;
+package pl.pkolkiew.ha2.infrastructure.shared.aggregates;
 
 import javax.persistence.Embeddable;
 import java.io.Serializable;
