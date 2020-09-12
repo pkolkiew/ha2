@@ -27,7 +27,7 @@ class AttachmentEntity implements Serializable {
 
     @Type(type = "jsonb")
     @Column(columnDefinition = "jsonb")
-    private byte[] attachment;
+    private String attachment;
 
     @ManyToOne
     @JoinColumn(name = "article_id", nullable = false)
