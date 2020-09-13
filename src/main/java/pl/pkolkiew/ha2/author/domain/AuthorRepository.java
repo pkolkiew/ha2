@@ -11,7 +11,7 @@ import java.util.concurrent.ConcurrentHashMap;
  * @author pkolkiew
  * Created 7/11/2020
  */
-public interface AuthorRepository extends Repository<AuthorEntity, Long> {
+interface AuthorRepository extends Repository<AuthorEntity, Long> {
 
     @Query("SELECT s FROM AUTHOR s WHERE s.authorId =:authorId")
     Optional<AuthorEntity> findOneById(AuthorId authorId);
