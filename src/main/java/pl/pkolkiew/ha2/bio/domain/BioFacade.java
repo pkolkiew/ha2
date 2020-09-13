@@ -7,7 +7,7 @@ package pl.pkolkiew.ha2.bio.domain;
 public class BioFacade {
 
     void abstractBioCreation() {
-        BioEntity bio = new BioEntity("name");
+        BioEntity bioEntity = new BioEntity("name");
 
 
     }
